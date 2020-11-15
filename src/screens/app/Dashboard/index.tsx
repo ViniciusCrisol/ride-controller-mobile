@@ -13,7 +13,7 @@ const Dashboard: React.FC = () => {
       <Container>
         <HeaderCard label="Total gasto em 60 viagens" value={120} />
         <TextCard leftLabel="4 viagens" rightLabel="R$ 8.00" />
-        <Button>Alterar</Button>
+        <Button>Zerar</Button>
       </Container>
     </Layout>
   );

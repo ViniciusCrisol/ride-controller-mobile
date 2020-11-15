@@ -27,6 +27,7 @@
   "rules": {
     "prettier/prettier": "error",
     "react/jsx-one-expression-per-line": "off",
+    "react/display-name": "off",
     "@typescript-eslint/camelcase": "off",
     "import/no-duplicates": "off",
     "react/jsx-props-no-spreading": "off",
