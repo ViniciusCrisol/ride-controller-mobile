@@ -7,7 +7,7 @@ const List: React.FC = () => (
     {[1, 2, 3, 4, 5].map((item) => (
       <Item key={item}>
         <Quantity>{item}</Quantity>
-        <Label>Número de viagens semanais</Label>
+        <Label>Número de{'\n'}viagens semanais</Label>
       </Item>
     ))}
   </Container>

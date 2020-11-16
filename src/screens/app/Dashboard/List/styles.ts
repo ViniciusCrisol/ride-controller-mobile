@@ -16,6 +16,8 @@ export const Item = styled.View`
   margin-right: 14px;
   border-radius: 12px;
   background: #d0ebe4;
+
+  justify-content: space-between;
 `;
 
 export const Quantity = styled.Text`
