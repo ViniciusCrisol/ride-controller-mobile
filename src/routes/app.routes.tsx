@@ -2,6 +2,7 @@ import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import History from '../screens/app/History';
 import Dashboard from '../screens/app/Dashboard';
 import Settings from '../screens/app/Settings';
 
@@ -14,12 +15,14 @@ const tabBarOptions = {
 };
 
 const icons: any = {
+  History: 'list',
   Dashboard: 'home',
   Settings: 'settings',
 };
 
 const AuthRoutes: React.FC = () => (
   <Tab.Navigator
+    initialRouteName="Dashboard"
     tabBarOptions={{ ...tabBarOptions }}
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
@@ -27,6 +30,7 @@ const AuthRoutes: React.FC = () => (
       },
     })}
   >
+    <Tab.Screen name="History" component={History} />
     <Tab.Screen name="Dashboard" component={Dashboard} />
     <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>

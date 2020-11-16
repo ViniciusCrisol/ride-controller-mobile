@@ -6,3 +6,8 @@ export const Container = styled.ScrollView.attrs({
   flex: 1;
   width: 100%;
 `;
+
+export const ListContainer = styled.View`
+  width: 100%;
+  background: #fff;
+`;
