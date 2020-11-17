@@ -6,17 +6,17 @@ import TextCard from '../../../components/TextCard';
 import HeaderCard from '../../../components/HeaderCard';
 
 import List from './List';
-import { Container, ListContainer } from './styles';
+import { ListContainer, LogContainer } from './styles';
 
 const Dashboard: React.FC = () => {
   return (
     <>
       <Layout>
-        <Container>
-          <HeaderCard label="Total gasto em 60 viagens" value={120} />
+        <HeaderCard label="Total gasto em 60 viagens" value={120} />
+        <LogContainer>
           <TextCard leftLabel="4 viagens" rightLabel="R$ 8.00" />
           <Button>Zerar</Button>
-        </Container>
+        </LogContainer>
       </Layout>
       <ListContainer>
         <List />

@@ -4,18 +4,16 @@ import Layout from '../../../components/Layout';
 import TextCard from '../../../components/TextCard';
 import HeaderCard from '../../../components/HeaderCard';
 
-import { Container, LogList } from './styles';
+import { LogList } from './styles';
 
 const History: React.FC = () => (
   <Layout>
-    <Container>
-      <HeaderCard label="Total gasto em 60 viagens" value={120} />
-      <LogList>
-        <TextCard leftLabel="4 viagens" rightLabel="R$ 8.00" />
-        <TextCard leftLabel="4 viagens" rightLabel="R$ 8.00" />
-        <TextCard leftLabel="4 viagens" rightLabel="R$ 8.00" />
-      </LogList>
-    </Container>
+    <HeaderCard label="Total gasto em 60 viagens" value={120} />
+    <LogList>
+      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
+      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
+      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
+    </LogList>
   </Layout>
 );
 
