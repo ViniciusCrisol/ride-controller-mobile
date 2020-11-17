@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const LogList = styled.ScrollView.attrs({
-  stickyHeaderIndices: [1],
+  stickyHeaderIndices: [0],
   showsVerticalScrollIndicator: false,
   contentContainerStyle: { paddingTop: 120 },
 })`

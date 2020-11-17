@@ -9,10 +9,10 @@ import { LogList, InfoCard, Label } from './styles';
 const History: React.FC = () => (
   <Layout>
     <LogList>
-      <InfoCard>
+      {/* <InfoCard>
         <Label>18 viagens realizadas</Label>
         <Label>R$ 124.00 gastos em 3 meses</Label>
-      </InfoCard>
+      </InfoCard> */}
       <HeaderCard label="Total gasto em 60 viagens" value={120} />
       <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
       <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
