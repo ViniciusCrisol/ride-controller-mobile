@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 
-import { Text } from 'react-native';
-
-import { Container } from './styles';
+import Input from '../../../components/Input';
+import Layout from '../../../components/Layout';
+import HeaderCard from '../../../components/HeaderCard';
 
 const Settings: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
   return (
-    <Container>
-      <Text>Settings</Text>
-    </Container>
+    <Layout>
+      <HeaderCard
+        label="Valor por viagem - alterado dia 20/10/2020"
+        value={2}
+      />
+      <Form ref={formRef} onSubmit={(data: any) => console.log(data)}>
+        <Input name="value" icon="dollar-sign" placeholder="Valor" />
+      </Form>
+    </Layout>
   );
 };
 
