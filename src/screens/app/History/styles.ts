@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 export const LogList = styled.ScrollView.attrs({
   stickyHeaderIndices: [0],
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: { paddingTop: 120 },
+  contentContainerStyle: { paddingTop: 40 },
 })`
   flex: 1;
   width: 100%;
