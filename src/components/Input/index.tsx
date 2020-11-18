@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
 
   return (
     <Container>
-      <Icon name={icon} size={20} color="#2c2c2c" />
+      <Icon name={icon} size={20} color="#1acb78" />
       <TextInput
         onChangeText={(value) => {
           inputValueRef.current.value = value;

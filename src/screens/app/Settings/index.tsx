@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
-import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 
 import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 import Layout from '../../../components/Layout';
 import HeaderCard from '../../../components/HeaderCard';
+
+import { Form } from './styles';
 
 const Settings: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -17,6 +19,7 @@ const Settings: React.FC = () => {
       />
       <Form ref={formRef} onSubmit={(data: any) => console.log(data)}>
         <Input name="value" icon="dollar-sign" placeholder="Valor" />
+        <Button>Enviar</Button>
       </Form>
     </Layout>
   );

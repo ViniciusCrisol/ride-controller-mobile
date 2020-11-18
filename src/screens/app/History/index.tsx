@@ -14,26 +14,6 @@ const History: React.FC = () => (
     <LogList>
       <HeaderCard label="Total gasto em 60 viagens" value={120} />
       <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="8:00" />
-      <TextCard leftLabel="20 dezembro 2020" rightLabel="17:00" />
-      <TextCard leftLabel="19 dezembro 2020" rightLabel="8:00" />
     </LogList>
   </Layout>
 );
