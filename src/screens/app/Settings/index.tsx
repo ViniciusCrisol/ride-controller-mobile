@@ -34,9 +34,7 @@ const Settings: React.FC = () => {
           keyboardType="numeric"
           placeholder="0.00"
         />
-        <Button loading onPress={() => formRef.current?.submitForm()}>
-          Enviar
-        </Button>
+        <Button onPress={() => formRef.current?.submitForm()}>Enviar</Button>
       </Form>
     </Layout>
   );

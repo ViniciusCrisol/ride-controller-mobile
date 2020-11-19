@@ -11,7 +11,7 @@ const AuthStack = createStackNavigator();
 
 const routeProps = {
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-  cardStyle: { backgroundColor: '#312e38', headerShown: false },
+  cardStyle: { backgroundColor: '#fff', headerShown: false },
 };
 
 const AuthRoutes: React.FC = () => (
