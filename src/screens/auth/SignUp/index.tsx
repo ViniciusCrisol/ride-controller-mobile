@@ -1,8 +1,9 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { useNavigation } from '@react-navigation/native';
 
+import api from '../../../library/api';
 import validateForm from '../../../library/validateSignUpForm';
 
 import Input from '../../../components/Input';
@@ -14,18 +15,28 @@ import { Label, Form, Title } from '../styles';
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { navigate } = useNavigation();
-
-  const handleSubmit = useCallback(async (data: ISignUp) => {
-    try {
-      validateForm(data);
-    } catch (err) {
-      Alert.alert('Erro no cadastro.', err.message);
-    }
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const handleNavigate = useCallback(() => {
     navigate('SignIn');
   }, [navigate]);
+
+  const handleSubmit = useCallback(
+    async ({ name, code, email, password }: ISignUp) => {
+      setLoading(true);
+
+      try {
+        validateForm({ name, code, email, password });
+        await api.post('users', { name, code, email, password });
+        handleNavigate();
+      } catch (err) {
+        setLoading(false);
+        const errorMessage = err.response.data.message || err.message;
+        Alert.alert('Erro no cadastro.', errorMessage);
+      }
+    },
+    [handleNavigate],
+  );
 
   return (
     <Layout>
@@ -40,7 +51,9 @@ const SignUp: React.FC = () => {
           keyboardType="email-address"
         />
         <Input name="password" icon="lock" placeholder="Senha" />
-        <Button onPress={() => formRef.current?.submitForm()}>Enviar</Button>
+        <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
+          Enviar
+        </Button>
         <Label onPress={handleNavigate}>Já tenho uma conta</Label>
       </Form>
     </Layout>
