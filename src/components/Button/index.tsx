@@ -9,7 +9,7 @@ interface ButtonProps extends RectButtonProperties {
 }
 
 const Button: React.FC<ButtonProps> = ({ children, loading, ...rest }) => (
-  <Container {...rest} isLoading={!!loading} enabled={!!loading}>
+  <Container {...rest} isLoading={loading} enabled={!loading}>
     {loading ? <Spinner /> : <ButtonText>{children}</ButtonText>}
   </Container>
 );
