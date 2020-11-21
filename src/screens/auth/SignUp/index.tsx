@@ -13,9 +13,9 @@ import Button from '../../../components/Button';
 import { Label, Form, Title } from '../styles';
 
 const SignUp: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
   const { navigate } = useNavigation();
-  const [loading, setLoading] = useState(false);
 
   const handleNavigate = useCallback(() => {
     navigate('SignIn');
@@ -50,7 +50,12 @@ const SignUp: React.FC = () => {
           placeholder="E-mail"
           keyboardType="email-address"
         />
-        <Input name="password" icon="lock" placeholder="Senha" />
+        <Input
+          name="password"
+          icon="lock"
+          placeholder="Senha"
+          secureTextEntry
+        />
         <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
           Enviar
         </Button>

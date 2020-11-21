@@ -12,11 +12,10 @@ import Button from '../../../components/Button';
 import { Label, Form, Title } from '../styles';
 
 const SignIn: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
   const { navigate } = useNavigation();
   const { signIn } = useAuth();
-
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = useCallback(
     async ({ login, password }: ISignIn) => {
