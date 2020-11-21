@@ -7,11 +7,11 @@ export const Form = styled(FormTemplate)`
   justify-content: center;
 `;
 
-export const CreateAccont = styled.Text`
+export const Label = styled.Text`
+  margin-top: 12px;
   color: #1acb78;
   text-align: right;
   text-decoration: underline;
-  margin-top: 8px;
 `;
 
 export const Title = styled.Text`
