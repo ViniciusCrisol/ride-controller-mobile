@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import AsynStorage from '@react-native-community/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 import api from '../library/api';
 
 interface AuthState {
@@ -15,7 +16,6 @@ interface AuthState {
 
 interface AuthContextData {
   user: any;
-  loading: boolean;
   signOut(): void;
   signIn(credentials: ISignIn): Promise<void>;
 }
@@ -24,18 +24,16 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getInitialData(): Promise<void> {
+      await SplashScreen.preventAutoHideAsync();
+
       const token = await AsynStorage.getItem('@GoBarber:token');
       const user = await AsynStorage.getItem('@GoBarber:user');
+      if (token && user) setData({ token, user: JSON.parse(user) });
 
-      if (token && user) {
-        setData({ token, user: JSON.parse(user) });
-      }
-
-      setLoading(false);
+      await SplashScreen.hideAsync();
     }
 
     getInitialData();
@@ -60,7 +58,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loading, user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

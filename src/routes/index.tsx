@@ -4,14 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 
-// import { useAuth } from '../hooks/auth';
+import { useAuth } from '../hooks/auth';
 
 const Routes: React.FC = () => {
-  // const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   return (
     <NavigationContainer>
-      <AuthRoutes />
+      {user ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 };
