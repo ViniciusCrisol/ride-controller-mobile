@@ -48,8 +48,8 @@ const AuthProvider: React.FC = ({ children }) => {
     async function getInitialData(): Promise<void> {
       await preventAutoHideAsync();
 
-      const token = await AsynStorage.getItem('@GoBarber:token');
-      const user = await AsynStorage.getItem('@GoBarber:user');
+      const token = await AsynStorage.getItem('@RC:token');
+      const user = await AsynStorage.getItem('@RC:user');
       if (token && user) setData({ token, user: JSON.parse(user) });
 
       await hideAsync();
@@ -63,23 +63,18 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, payment, ticket, user } = response.data;
 
-    console.log({ token, payment, ticket, user });
-
-    await AsynStorage.setItem('@GoBarber:user', JSON.stringify(user));
-    await AsynStorage.setItem('@GoBarber:token', JSON.stringify(token));
-
-    if (ticket)
-      await AsynStorage.setItem('@GoBarber:ticket', JSON.stringify(ticket));
-
+    await AsynStorage.setItem('@RC:user', JSON.stringify(user));
+    await AsynStorage.setItem('@RC:token', JSON.stringify(token));
+    if (ticket) await AsynStorage.setItem('@RC:ticket', JSON.stringify(ticket));
     if (payment)
-      await AsynStorage.setItem('@GoBarber:payment', JSON.stringify(payment));
+      await AsynStorage.setItem('@RC:payment', JSON.stringify(payment));
 
     setData({ token, payment, ticket, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsynStorage.removeItem('@GoBarber:user');
-    await AsynStorage.removeItem('@GoBarber:token');
+    await AsynStorage.removeItem('@RC:user');
+    await AsynStorage.removeItem('@RC:token');
 
     setData({} as IAuthState);
   }, []);

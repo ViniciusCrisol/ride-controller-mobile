@@ -34,8 +34,8 @@ const Settings: React.FC = () => {
         <Input
           name="value"
           icon="dollar-sign"
-          keyboardType="numeric"
           placeholder="0.00"
+          keyboardType="numeric"
         />
         <Button onPress={() => formRef.current?.submitForm()}>Enviar</Button>
       </Form>

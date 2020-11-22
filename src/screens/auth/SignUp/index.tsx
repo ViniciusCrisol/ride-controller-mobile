@@ -13,9 +13,9 @@ import Button from '../../../components/Button';
 import { Label, Form, Title } from '../styles';
 
 const SignUp: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const formRef = useRef<FormHandles>(null);
   const { navigate } = useNavigation();
+  const formRef = useRef<FormHandles>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleNavigate = useCallback(() => {
     navigate('SignIn');
@@ -51,8 +51,8 @@ const SignUp: React.FC = () => {
           keyboardType="email-address"
         />
         <Input
-          name="password"
           icon="lock"
+          name="password"
           placeholder="Senha"
           secureTextEntry
           autoCapitalize="none"

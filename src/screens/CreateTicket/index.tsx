@@ -1,25 +1,28 @@
-import React, { useCallback, useRef } from 'react';
-import { Form } from '@unform/mobile';
+import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 
 import api from '../../library/api';
 import { useAuth } from '../../hooks/auth';
 
-import Button from '../../components/Button';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import { Container, Text, SignOutLabel, SignOutButton } from './styles';
 
 interface IRequest {
-  value: number;
+  value: string;
 }
 
 const CreateTicket: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
   const { signOut } = useAuth();
+  const formRef = useRef<FormHandles>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = useCallback(async ({ value }: IRequest) => {
-    await api.post('tickets', value);
+    setLoading(true);
+    const fixedValue = Number(value).toFixed(2);
+    await api.post('tickets', fixedValue);
   }, []);
 
   return (
@@ -31,10 +34,12 @@ const CreateTicket: React.FC = () => {
         <Input
           name="value"
           icon="dollar-sign"
-          keyboardType="numeric"
           placeholder="0.00"
+          keyboardType="numeric"
         />
-        <Button onPress={() => formRef.current?.submitForm()}>Acessar</Button>
+        <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
+          Acessar
+        </Button>
       </Form>
       <SignOutButton onPress={signOut}>
         <SignOutLabel>Cancelar(sair)</SignOutLabel>
