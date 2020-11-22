@@ -50,6 +50,7 @@ const SignIn: React.FC = () => {
           name="password"
           placeholder="Senha"
           secureTextEntry
+          autoCapitalize="none"
         />
         <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
           Enviar

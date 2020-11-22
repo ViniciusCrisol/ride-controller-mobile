@@ -1,17 +1,27 @@
 import styled from 'styled-components/native';
-import { Form as FormTemplate } from '@unform/mobile';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Form = styled(FormTemplate)`
+export const Container = styled.View`
   width: 100%;
-  margin-bottom: auto;
+  padding: 20px;
+  background: #fff;
+
+  flex: 1;
+  justify-content: center;
+`;
+
+export const Text = styled.Text`
+  color: #1acb78;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 24px;
 `;
 
 export const SignOutButton = styled(RectButton)`
   width: 100%;
-  height: 40px;
+  height: 50px;
 
-  margin: 14px 0;
+  margin-top: 8px;
   border-radius: 4px;
   background: #f82e5a;
 

@@ -10,7 +10,7 @@ export const Container = styled(RectButton)<IContainer>`
   height: 50px;
 
   border-radius: 4px;
-  background-color: ${({ isLoading }) => (isLoading ? '#1acb7860' : '#1acb78')};
+  background: ${({ isLoading }) => (isLoading ? '#1acb7860' : '#1acb78')};
 
   align-items: center;
   justify-content: center;

@@ -55,6 +55,7 @@ const SignUp: React.FC = () => {
           icon="lock"
           placeholder="Senha"
           secureTextEntry
+          autoCapitalize="none"
         />
         <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
           Enviar

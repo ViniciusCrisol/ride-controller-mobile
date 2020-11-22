@@ -1,12 +1,14 @@
 import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 
+import { useAuth } from '../../../hooks/auth';
+
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import Layout from '../../../components/Layout';
 import HeaderCard from '../../../components/HeaderCard';
 
-import { Form } from './styles';
+import { Form, SignOutButton, SignOutLabel } from './styles';
 
 interface IFormData {
   value: string;
@@ -14,6 +16,7 @@ interface IFormData {
 
 const Settings: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { signOut } = useAuth();
 
   const handleSubmit = useCallback(({ value }: IFormData) => {
     const fixedValue = Number(value).toFixed(2);
@@ -36,6 +39,9 @@ const Settings: React.FC = () => {
         />
         <Button onPress={() => formRef.current?.submitForm()}>Enviar</Button>
       </Form>
+      <SignOutButton onPress={signOut}>
+        <SignOutLabel>Sair</SignOutLabel>
+      </SignOutButton>
     </Layout>
   );
 };
