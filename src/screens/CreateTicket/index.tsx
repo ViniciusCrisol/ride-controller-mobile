@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import { Alert } from 'react-native';
 
 import api from '../../library/api';
 import { useAuth } from '../../hooks/auth';
@@ -15,15 +16,25 @@ interface IRequest {
 }
 
 const CreateTicket: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, updateTicket } = useAuth();
   const formRef = useRef<FormHandles>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = useCallback(async ({ value }: IRequest) => {
-    setLoading(true);
-    const fixedValue = Number(value).toFixed(2);
-    await api.post('tickets', fixedValue);
-  }, []);
+  const handleSubmit = useCallback(
+    async ({ value }: IRequest) => {
+      setLoading(true);
+      const fixedValue = Number(Number(value).toFixed(2));
+
+      try {
+        await api.post('tickets', { value: fixedValue });
+        updateTicket(fixedValue);
+      } catch (err) {
+        setLoading(false);
+        Alert.alert('Erro ao cadastrar ticket.', err.response.data.message);
+      }
+    },
+    [updateTicket],
+  );
 
   return (
     <Container>

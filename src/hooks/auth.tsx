@@ -34,8 +34,9 @@ interface IAuthState {
 
 interface IAuthContextData {
   user: IUser;
-  ticket?: boolean;
+  ticket?: ITicket;
   signOut(): void;
+  updateTicket(value: number): void;
   signIn(credentials: ISignIn): Promise<void>;
 }
 
@@ -50,7 +51,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
       const token = await AsynStorage.getItem('@RC:token');
       const user = await AsynStorage.getItem('@RC:user');
-      if (token && user) setData({ token, user: JSON.parse(user) });
+      if (token && user) {
+        setData({ token, user: JSON.parse(user) });
+        api.defaults.headers.authorization = `Bearer ${token}`;
+      }
 
       await hideAsync();
     }
@@ -62,9 +66,10 @@ const AuthProvider: React.FC = ({ children }) => {
     const response = await api.post('sessions', { login, password });
 
     const { token, payment, ticket, user } = response.data;
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
+    await AsynStorage.setItem('@RC:token', token);
     await AsynStorage.setItem('@RC:user', JSON.stringify(user));
-    await AsynStorage.setItem('@RC:token', JSON.stringify(token));
     if (ticket) await AsynStorage.setItem('@RC:ticket', JSON.stringify(ticket));
     if (payment)
       await AsynStorage.setItem('@RC:payment', JSON.stringify(payment));
@@ -79,9 +84,26 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as IAuthState);
   }, []);
 
+  const updateTicket = useCallback(
+    async (value: number) => {
+      await AsynStorage.setItem('@RC:ticket', JSON.stringify(value));
+      setData((prevData) => ({
+        ...prevData,
+        ticket: { created_at: new Date(), value },
+      }));
+    },
+    [setData],
+  );
+
   return (
     <AuthContext.Provider
-      value={{ user: data.user, ticket: !!data.ticket, signIn, signOut }}
+      value={{
+        user: data.user,
+        ticket: data.ticket,
+        signIn,
+        signOut,
+        updateTicket,
+      }}
     >
       {children}
     </AuthContext.Provider>

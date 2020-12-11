@@ -20,8 +20,6 @@ const Settings: React.FC = () => {
 
   const handleSubmit = useCallback(({ value }: IFormData) => {
     const fixedValue = Number(value).toFixed(2);
-
-    console.log(fixedValue);
   }, []);
 
   return (

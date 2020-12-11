@@ -48,13 +48,14 @@ const SignUp: React.FC = () => {
           name="email"
           icon="mail"
           placeholder="E-mail"
+          autoCapitalize="none"
           keyboardType="email-address"
         />
         <Input
           icon="lock"
           name="password"
-          placeholder="Senha"
           secureTextEntry
+          placeholder="Senha"
           autoCapitalize="none"
         />
         <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
