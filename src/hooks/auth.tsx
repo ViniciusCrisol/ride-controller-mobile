@@ -35,6 +35,7 @@ interface IAuthState {
 interface IAuthContextData {
   user: IUser;
   ticket?: ITicket;
+  lastPayment?: ILastPayment;
   signOut(): void;
   updateTicket(ticket: ITicket): void;
   signIn(credentials: ISignIn): Promise<void>;
@@ -111,6 +112,7 @@ const AuthProvider: React.FC = ({ children }) => {
       value={{
         user: data.user,
         ticket: data.ticket,
+        lastPayment: data.payment,
         signIn,
         signOut,
         updateTicket,

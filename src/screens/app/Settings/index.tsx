@@ -3,6 +3,7 @@ import { FormHandles } from '@unform/core';
 import { Alert, View } from 'react-native';
 
 import api from '../../../library/api';
+import formatDate from '../../../library/formatDate';
 import { useAuth } from '../../../hooks/auth';
 
 import Input from '../../../components/Input';
@@ -22,9 +23,7 @@ const Settings: React.FC = () => {
   const { signOut, ticket, updateTicket } = useAuth();
 
   const formattedDate = useMemo(() => {
-    const splittedDate = String(ticket?.created_at).split('T')[0];
-    const [year, month, day] = splittedDate.split('-');
-    return `${day}/${month}/${year}`;
+    return ticket ? formatDate(ticket?.created_at) : '-';
   }, [ticket]);
 
   const handleSubmit = useCallback(
@@ -60,7 +59,7 @@ const Settings: React.FC = () => {
           keyboardType="numeric"
         />
         <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
-          Enviar
+          Atualizar
         </Button>
       </Form>
       <SignOutButton onPress={signOut}>
