@@ -1,56 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import api from '../../../library/api';
+import { getDate, getHour } from './library/formatDate';
 
 import Layout from '../../../components/Layout';
+import Loading from '../../../components/Loading';
 import TextCard from '../../../components/TextCard';
 import HeaderCard from '../../../components/HeaderCard';
 
-import { LogList, Header, HeaderText, Spinner, LoadContainer } from './styles';
-
-function switchMonth(month: string): string {
-  switch (month) {
-    case '01':
-      return 'janeiro';
-    case '02':
-      return 'fevereiro';
-    case '03':
-      return 'março';
-    case '04':
-      return 'abril';
-    case '05':
-      return 'maio';
-    case '06':
-      return 'junho';
-    case '07':
-      return 'julho';
-    case '08':
-      return 'agosto';
-    case '09':
-      return 'setembro';
-    case '10':
-      return 'outubro';
-    case '11':
-      return 'novembro';
-    default:
-      return 'dezembro';
-  }
-}
-
-function getDate(date: string): string {
-  const splittedDate = date.split('T')[0];
-  const [year, month, day] = splittedDate.split('-');
-  return `${day} ${switchMonth(month)} ${year}`;
-}
-
-function getHour(date: string): string {
-  const splittedDate = date.split('T')[1];
-  const [hour, minutes, _seconds] = splittedDate.split(':');
-  return `${hour}:${minutes}`;
-}
+import { LogList, Header, HeaderText } from './styles';
 
 const History: React.FC = () => {
-  const [logs, setLogs] = useState<ILogs[]>([]);
+  const [logs, setLogs] = useState<ILog[]>([]);
 
   useEffect(() => {
     async function getInitialData(): Promise<void> {
@@ -61,13 +22,7 @@ const History: React.FC = () => {
     getInitialData();
   }, []);
 
-  if (logs.length === 0) {
-    return (
-      <LoadContainer>
-        <Spinner />
-      </LoadContainer>
-    );
-  }
+  if (logs.length === 0) return <Loading />;
 
   return (
     <Layout>

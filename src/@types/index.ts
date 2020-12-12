@@ -10,7 +10,7 @@ interface ISignUp {
   password: string;
 }
 
-interface ILogs {
+interface ILog {
   id: string;
   value: string;
   created_at: string;

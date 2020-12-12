@@ -5,6 +5,7 @@ import api from '../../../library/api';
 
 import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
+import Loading from '../../../components/Loading';
 import TextCard from '../../../components/TextCard';
 import HeaderCard from '../../../components/HeaderCard';
 
@@ -12,7 +13,7 @@ import List from './List';
 import { ListContainer } from './styles';
 
 const Dashboard: React.FC = () => {
-  const [logs, setLogs] = useState<ILogs[]>([]);
+  const [logs, setLogs] = useState<ILog[]>([]);
 
   useEffect(() => {
     async function getInitialData(): Promise<void> {
@@ -28,6 +29,8 @@ const Dashboard: React.FC = () => {
     return logs.filter((log) => isAfter(parseISO(log.created_at), startOfWeek));
   }, [logs]);
 
+  if (logs.length === 0) return <Loading />;
+
   return (
     <>
       <Layout>
@@ -39,7 +42,7 @@ const Dashboard: React.FC = () => {
         <Button>Zerar</Button>
       </Layout>
       <ListContainer>
-        <List />
+        <List logs={logs} />
       </ListContainer>
     </>
   );
