@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import api from '../../../library/api';
 import { getDate, getHour } from './library/formatDate';
@@ -13,14 +14,17 @@ import { LogList, Header, HeaderText } from './styles';
 const History: React.FC = () => {
   const [logs, setLogs] = useState<ILog[]>([]);
 
-  useEffect(() => {
-    async function getInitialData(): Promise<void> {
-      const response = await api.get('logs');
-      setLogs(response.data);
-    }
+  useFocusEffect(
+    useCallback(() => {
+      async function getInitialData(): Promise<void> {
+        const response = await api.get('logs');
+        setLogs(response.data);
+      }
 
-    getInitialData();
-  }, []);
+      getInitialData();
+      return () => setLogs([]);
+    }, []),
+  );
 
   if (logs.length === 0) return <Loading />;
 
