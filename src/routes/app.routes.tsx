@@ -16,8 +16,8 @@ const tabBarOptions = {
 
 const icons: any = {
   History: 'list',
-  Settings: 'settings',
   Dashboard: 'home',
+  Settings: 'settings',
 };
 
 const AuthRoutes: React.FC = () => (
@@ -31,8 +31,8 @@ const AuthRoutes: React.FC = () => (
     })}
   >
     <Tab.Screen name="History" component={History} />
-    <Tab.Screen name="Settings" component={Settings} />
     <Tab.Screen name="Dashboard" component={Dashboard} />
+    <Tab.Screen name="Settings" component={Settings} />
   </Tab.Navigator>
 );
 export default AuthRoutes;

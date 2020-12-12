@@ -26,8 +26,8 @@ const CreateTicket: React.FC = () => {
       const fixedValue = Number(Number(value).toFixed(2));
 
       try {
-        await api.post('tickets', { value: fixedValue });
-        updateTicket(fixedValue);
+        const response = await api.post('tickets', { value: fixedValue });
+        updateTicket(response.data);
       } catch (err) {
         setLoading(false);
         Alert.alert('Erro ao cadastrar ticket.', err.response.data.message);

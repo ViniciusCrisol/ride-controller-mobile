@@ -7,11 +7,13 @@ interface ICard {
   value: number;
 }
 
-const HeaderCard: React.FC<ICard> = ({ label, value }) => (
-  <Container>
-    <Label>{label}</Label>
-    <Value>R$ {value.toFixed(2)}</Value>
-  </Container>
-);
+const HeaderCard: React.FC<ICard> = ({ label, value }) => {
+  return (
+    <Container>
+      <Label>{label}</Label>
+      <Value>R$ {Number(value).toFixed(2)}</Value>
+    </Container>
+  );
+};
 
 export default HeaderCard;

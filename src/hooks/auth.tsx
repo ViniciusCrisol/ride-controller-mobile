@@ -36,7 +36,7 @@ interface IAuthContextData {
   user: IUser;
   ticket?: ITicket;
   signOut(): void;
-  updateTicket(value: number): void;
+  updateTicket(ticket: ITicket): void;
   signIn(credentials: ISignIn): Promise<void>;
 }
 
@@ -49,10 +49,19 @@ const AuthProvider: React.FC = ({ children }) => {
     async function getInitialData(): Promise<void> {
       await preventAutoHideAsync();
 
-      const token = await AsynStorage.getItem('@RC:token');
       const user = await AsynStorage.getItem('@RC:user');
+      const token = await AsynStorage.getItem('@RC:token');
+      const ticket = await AsynStorage.getItem('@RC:ticket');
+      const payment = await AsynStorage.getItem('@RC:payment');
+
       if (token && user) {
-        setData({ token, user: JSON.parse(user) });
+        setData({
+          token,
+          user: JSON.parse(user),
+          ticket: ticket ? JSON.parse(ticket) : undefined,
+          payment: payment ? JSON.parse(payment) : undefined,
+        });
+
         api.defaults.headers.authorization = `Bearer ${token}`;
       }
 
@@ -70,9 +79,14 @@ const AuthProvider: React.FC = ({ children }) => {
 
     await AsynStorage.setItem('@RC:token', token);
     await AsynStorage.setItem('@RC:user', JSON.stringify(user));
-    if (ticket) await AsynStorage.setItem('@RC:ticket', JSON.stringify(ticket));
-    if (payment)
+
+    if (ticket) {
+      await AsynStorage.setItem('@RC:ticket', JSON.stringify(ticket));
+    }
+
+    if (payment) {
       await AsynStorage.setItem('@RC:payment', JSON.stringify(payment));
+    }
 
     setData({ token, payment, ticket, user });
   }, []);
@@ -85,12 +99,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const updateTicket = useCallback(
-    async (value: number) => {
-      await AsynStorage.setItem('@RC:ticket', JSON.stringify(value));
-      setData((prevData) => ({
-        ...prevData,
-        ticket: { created_at: new Date(), value },
-      }));
+    async (ticket: ITicket) => {
+      await AsynStorage.setItem('@RC:ticket', JSON.stringify(ticket));
+      setData((prevData) => ({ ...prevData, ticket }));
     },
     [setData],
   );
@@ -112,7 +123,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
 function useAuth(): IAuthContextData {
   const context = useContext(AuthContext);
-
   return context;
 }
 

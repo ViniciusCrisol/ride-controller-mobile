@@ -1,6 +1,8 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
+import { Alert, View } from 'react-native';
 
+import api from '../../../library/api';
 import { useAuth } from '../../../hooks/auth';
 
 import Input from '../../../components/Input';
@@ -15,18 +17,40 @@ interface IFormData {
 }
 
 const Settings: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
-  const { signOut } = useAuth();
+  const { signOut, ticket, updateTicket } = useAuth();
 
-  const handleSubmit = useCallback(({ value }: IFormData) => {
-    const fixedValue = Number(value).toFixed(2);
-  }, []);
+  const formattedDate = useMemo(() => {
+    const date = String(ticket?.created_at).split('T')[0];
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  }, [ticket]);
+
+  const handleSubmit = useCallback(
+    async ({ value }: IFormData) => {
+      setLoading(true);
+      const fixedValue = Number(Number(value).toFixed(2));
+
+      try {
+        const response = await api.post('tickets', { value: fixedValue });
+        updateTicket(response.data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        Alert.alert('Erro ao cadastrar ticket.', err.response.data.message);
+      }
+    },
+    [updateTicket],
+  );
+
+  if (!ticket) return <View />;
 
   return (
     <Layout>
       <HeaderCard
-        label="Valor por viagem - alterado dia 20/10/2020"
-        value={2}
+        label={`Valor por viagem - alterado dia ${formattedDate}`}
+        value={ticket.value}
       />
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input
@@ -35,7 +59,9 @@ const Settings: React.FC = () => {
           placeholder="0.00"
           keyboardType="numeric"
         />
-        <Button onPress={() => formRef.current?.submitForm()}>Enviar</Button>
+        <Button loading={loading} onPress={() => formRef.current?.submitForm()}>
+          Enviar
+        </Button>
       </Form>
       <SignOutButton onPress={signOut}>
         <SignOutLabel>Sair</SignOutLabel>
