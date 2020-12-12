@@ -22,8 +22,8 @@ const Settings: React.FC = () => {
   const { signOut, ticket, updateTicket } = useAuth();
 
   const formattedDate = useMemo(() => {
-    const date = String(ticket?.created_at).split('T')[0];
-    const [year, month, day] = date.split('-');
+    const splittedDate = String(ticket?.created_at).split('T')[0];
+    const [year, month, day] = splittedDate.split('-');
     return `${day}/${month}/${year}`;
   }, [ticket]);
 

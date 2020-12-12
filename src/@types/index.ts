@@ -9,3 +9,9 @@ interface ISignUp {
   email: string;
   password: string;
 }
+
+interface ILogs {
+  id: string;
+  value: string;
+  created_at: Date;
+}
