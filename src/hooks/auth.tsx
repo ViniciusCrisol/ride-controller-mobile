@@ -38,6 +38,7 @@ interface IAuthContextData {
   lastPayment?: ILastPayment;
   signOut(): void;
   updateTicket(ticket: ITicket): void;
+  updateLastPayment(paymentTicket: ITicket): void;
   signIn(credentials: ISignIn): Promise<void>;
 }
 
@@ -107,6 +108,14 @@ const AuthProvider: React.FC = ({ children }) => {
     [setData],
   );
 
+  const updateLastPayment = useCallback(
+    async (paymentTicket: ITicket) => {
+      await AsynStorage.setItem('@RC:payment', JSON.stringify(paymentTicket));
+      setData((prevData) => ({ ...prevData, payment: paymentTicket }));
+    },
+    [setData],
+  );
+
   return (
     <AuthContext.Provider
       value={{
@@ -116,6 +125,7 @@ const AuthProvider: React.FC = ({ children }) => {
         signIn,
         signOut,
         updateTicket,
+        updateLastPayment,
       }}
     >
       {children}
