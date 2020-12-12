@@ -13,5 +13,5 @@ interface ISignUp {
 interface ILogs {
   id: string;
   value: string;
-  created_at: Date;
+  created_at: string;
 }

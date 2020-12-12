@@ -17,12 +17,12 @@ interface IUser {
 
 interface ITicket {
   value: number;
-  created_at: Date;
+  created_at: string;
 }
 
 interface ILastPayment {
   value: number;
-  created_at: Date;
+  created_at: string;
 }
 
 interface IAuthState {

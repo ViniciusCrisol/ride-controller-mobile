@@ -37,14 +37,14 @@ function switchMonth(month: string): string {
   }
 }
 
-function getDate(date: Date): string {
-  const splittedDate = String(date).split('T')[0];
+function getDate(date: string): string {
+  const splittedDate = date.split('T')[0];
   const [year, month, day] = splittedDate.split('-');
   return `${day} ${switchMonth(month)} ${year}`;
 }
 
-function getHour(date: Date): string {
-  const splittedDate = String(date).split('T')[1];
+function getHour(date: string): string {
+  const splittedDate = date.split('T')[1];
   const [hour, minutes, _seconds] = splittedDate.split(':');
   return `${hour}:${minutes}`;
 }
@@ -61,7 +61,7 @@ const History: React.FC = () => {
     getInitialData();
   }, []);
 
-  if (!logs) {
+  if (logs.length === 0) {
     return (
       <LoadContainer>
         <Spinner />
@@ -72,11 +72,11 @@ const History: React.FC = () => {
   return (
     <Layout>
       <Header>
-        <HeaderText>{logs.length} viagens realizadas</HeaderText>
+        <HeaderText>Histórioco de viagens</HeaderText>
       </Header>
       <LogList>
         <HeaderCard
-          label={`Total gasto em ${logs.length} viagens`}
+          label={`Total gasto em ${logs.length} viagens:`}
           value={logs.reduce((sum, log) => sum + Number(log.value), 0)}
         />
         {logs.map((log) => (

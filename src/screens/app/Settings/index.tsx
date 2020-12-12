@@ -38,7 +38,7 @@ const Settings: React.FC = () => {
         setLoading(false);
       } catch (err) {
         setLoading(false);
-        Alert.alert('Erro ao cadastrar ticket.', err.response.data.message);
+        Alert.alert('Erro ao cadastrar ticket:', err.response.data.message);
       }
     },
     [updateTicket],
